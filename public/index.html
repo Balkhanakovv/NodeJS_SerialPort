@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+     <head>
+          <title>LED</title>
+          <meta charset="utf-8" name="viewport" content="width=device-width">
+
+          <style>
+               * {
+                    margin: 0;
+               }
+
+               .button {
+                    display: flex;
+                    justify-content: center; 
+                    align-items: center;
+                    height: 100vh;
+               }
+
+               #LED {
+                    align-items: center;
+                    display: flex;
+               }
+          </style>
+     </head>
+     <body>
+          <div class = "button">
+               <input type="checkbox" id="LED"/>
+          </div>
+          <script type="text/javascript">
+               let led = document.getElementById('LED');
+               
+               function send(e) {
+                    let ledRequest = {status: e.target.checked};
+                    let json = JSON.stringify(ledRequest);
+                    let request = new XMLHttpRequest();
+
+                    request.open("POST", 'http://192.168.1.95:3000');
+                    request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+                    request.send(json);
+               }
+
+               led.addEventListener('click', send);
+          </script>
+     </body>
+</html>
